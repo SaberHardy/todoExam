@@ -1,0 +1,13 @@
+{% extends 'todos/base2.html' %}
+{%load static%}
+
+<h2>Login Page</h2>
+{%block content%}
+<form method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit">Log in</button>
+</form>
+{%endblock%}
+
+

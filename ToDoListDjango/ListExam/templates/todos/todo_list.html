@@ -1,0 +1,65 @@
+{% extends 'todos/base2.html' %}
+{%load static%}
+{%block content%}
+    <div class="container">
+        <div class="row ml-5">
+            <div class="col-md-8 offset-md-2">
+             
+            <div class="alert alert-{{ message.tags }}" role="alert">
+            </div>
+                <div class="card">
+                    <div class="card-header shadow-sm bg-white">
+
+                       <h1 class="display-5 text-info"><i class="fab fa-angrycreative"></i> {{user.username}} To Do App</h1> 
+                    </div>
+                    <div class="card-body">
+                       <ul class="list-group">
+                        <li class="list-group-item">
+                            <form action="{% url 'insert_into_list' %}" method="post" autocomplete="off">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="content">
+                                    <div class="input-group-append text-info">
+                                        <spain class="input-group-text bg-white py-0">
+                                            <button type="submit" class="btn btn-sm text-info">
+                                                <i class="fa fa-plus-circle fa-lg"></i>
+                                            </button>
+
+                                        </spain>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                           {%for todo in todo_list%}
+                           <li class="list-group-item">
+                            {%comment%} <a href="{% url 'edit' todo.id%}">{%endcomment%}{{todo.content}}
+                            {%comment%}
+                            </a>
+                            {%endcomment%}
+                            <form action="{% url 'delete_item' todo.id %}" method="post" class="float-right d-inline">
+                                {% csrf_token %}
+
+                                <button type="button" class="btn btn-default btn-sm">
+                                  {%comment%}<span class="glyphicon glyphicon-edit"></span>{%endcomment%}
+                                  <a href="{% url 'edit' todo.id %}">Edit</a>
+                                    </button>
+
+                                <button type="submit" class="btn">
+                                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                </button>
+                            </form>
+                           </li>
+                           {% empty %}
+                           <li class="list-group-item">
+                               <span class="font-italic">No Todo items</span>
+                           </li>
+                           {%endfor%}
+                       </ul> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{%endblock %}
